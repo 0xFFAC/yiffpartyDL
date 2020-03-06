@@ -48,10 +48,22 @@ def get_post_data():
 				"date": str(datetime.datetime.fromtimestamp(float(date)).strftime('%Y-%m-%d %H:%M:%S')),
 				"url": location["file_url"]
 				})
+	for i in search["shared_files"]:
+		date = str(i["uploaded"])
+		try:
+			filelist.append({
+				"id": i["id"],
+				"file_name": i["file_name"],
+				"epoch": int(date),
+				"date": str(datetime.datetime.fromtimestamp(float(date)).strftime('%Y-%m-%d %H:%M:%S')),
+				"url": i["file_url"]
+				})
+		except:
+			pass
 	return filelist	
 
 all_posts = get_post_data()
-patreon_name = get_patreon_name()
+patreon_name = get_patreon_name() + '-' + yiff_id
 
 def download_files():
 	current_path = os.getcwd()
